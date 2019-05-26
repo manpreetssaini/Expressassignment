@@ -27,7 +27,7 @@ router.get('/allproducts', (req, res, next) => {
 
 
 // Gets one item by ID
-router.get('/item/:id', (req, res, next) => {
+router.get('/product/:id', (req, res, next) => {
   res.sendStatus(200);
   next();
 });
@@ -40,14 +40,14 @@ router.post('/create', (req, res, next) => {
 
 // Deletes one item by Id
 
-router.delete('/delete/:id', (req, res, next) => {
+router.delete('/product/:id', (req, res, next) => {
   res.sendStatus(200);
   next();
 });
 
 // Updates one item by ID
 
-router.put('/update/:id', (req, res, next) => {
+router.put('/product/:id', (req, res, next) => {
   res.sendStatus(200);
   next();
 });
