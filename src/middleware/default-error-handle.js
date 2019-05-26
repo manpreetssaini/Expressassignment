@@ -14,3 +14,4 @@ module.exports = function defaultErrorHandler(error, req, res, next) {
       .json({ error });
   }
 };
+

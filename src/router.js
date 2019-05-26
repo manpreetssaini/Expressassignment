@@ -14,7 +14,7 @@ router.post('/register', (req, res, next) => {
 
 // login
 
-router.get('/login', (req, res, next) => {
+router.post('/login', (req, res, next) => {
   res.sendStatus(200);
   next();
 });

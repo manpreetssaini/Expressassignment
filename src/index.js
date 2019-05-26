@@ -3,8 +3,7 @@
 const express = require('express');
 const db = require('./db');
 const router = require('./router');
-const defaultErrorHandler = require('./middleware/default-error-handler');
-
+const defaultErrorHandler = require('./middleware/default-error-handle');
 const app = express();
 
 //app.set('view engine', 'ejs');
