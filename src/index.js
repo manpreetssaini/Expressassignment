@@ -1,15 +1,19 @@
 'use strict';
 
 const express = require('express');
-const products = require('./clothing');
+const db = require('./db');
 const router = require('./router');
+const defaultErrorHandler = require('./middleware/default-error-handler');
 
 const app = express();
 
-
+//app.set('view engine', 'ejs');
+//app.use('/static', express.static('static'));
 // Add middleware to parse JSON
-app.use(express.json());
 
+app.use(express.urlencoded());
+app.use(express.json());
+app.use(defaultErrorHandler);
 // Add router as middleware
 app.use(router);
 

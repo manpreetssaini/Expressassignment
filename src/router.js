@@ -1,59 +1,53 @@
 'use strict';
 
 const express = require('express');
-const products = require('./clothing');
+const db = require('./db');
 
 const router = express.Router();
 
 
 // register
-router.post('/clothing', (req, res, next) => {
-  console.log(req.body);
+router.post('/register', (req, res, next) => {
+  res.sendStatus(200);
   next();
 });
 
 // login
 
-router.get('/clothing', (req, res, next) => {
-  console.log(req.body);
+router.get('/login', (req, res, next) => {
   res.sendStatus(200);
   next();
 });
 
 // Gets all items
-router.get('/clothing', (req, res, next) => {
-  console.log(req.body);
+router.get('/allproducts', (req, res, next) => {
   res.sendStatus(200);
   next();
 });
 
 
 // Gets one item by ID
-router.get('/clothing/:id', (req, res, next) => {
-  console.log(req.body);
+router.get('/item/:id', (req, res, next) => {
   res.sendStatus(200);
   next();
 });
 
 // Creates an item
-router.post('/clothing', (req, res, next) => {
-  console.log(req.body);
+router.post('/create', (req, res, next) => {
   res.sendStatus(200);
   next();
 });
 
 // Deletes one item by Id
 
-router.delete('/clothing/:id', (req, res, next) => {
-  console.log(req.body);
+router.delete('/delete/:id', (req, res, next) => {
   res.sendStatus(200);
   next();
 });
 
 // Updates one item by ID
 
-router.put('/clothing/:id', (req, res, next) => {
-  console.log(req.body);
+router.put('/update/:id', (req, res, next) => {
   res.sendStatus(200);
   next();
 });
