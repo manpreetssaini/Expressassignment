@@ -16,11 +16,12 @@ router.post('/clothing', (req, res, next) => {
 
 router.get('/clothing', (req, res, next) => {
   console.log(req.body);
+  res.sendStatus(200);
   next();
 });
 
 // Gets all items
-router.get('/item/clothing', (req, res, next) => {
+router.get('/clothing', (req, res, next) => {
   console.log(req.body);
   res.sendStatus(200);
   next();
@@ -28,14 +29,14 @@ router.get('/item/clothing', (req, res, next) => {
 
 
 // Gets one item by ID
-router.get('/item/clothing/:id', (req, res, next) => {
+router.get('/clothing/:id', (req, res, next) => {
   console.log(req.body);
   res.sendStatus(200);
   next();
 });
 
 // Creates an item
-router.post('/item/clothing', (req, res, next) => {
+router.post('/clothing', (req, res, next) => {
   console.log(req.body);
   res.sendStatus(200);
   next();
@@ -43,7 +44,7 @@ router.post('/item/clothing', (req, res, next) => {
 
 // Deletes one item by Id
 
-router.delete('/item/clothing/:id', (req, res, next) => {
+router.delete('/clothing/:id', (req, res, next) => {
   console.log(req.body);
   res.sendStatus(200);
   next();
@@ -51,7 +52,7 @@ router.delete('/item/clothing/:id', (req, res, next) => {
 
 // Updates one item by ID
 
-router.put('/item/clothing/:id', (req, res, next) => {
+router.put('/clothing/:id', (req, res, next) => {
   console.log(req.body);
   res.sendStatus(200);
   next();
