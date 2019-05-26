@@ -1,6 +1,6 @@
 'use strict';
 
-const products = [
+const clothing = [
   {
     id: 1,
     name: 'Denim',
@@ -15,4 +15,4 @@ const products = [
   },
 ];
 
-module.exports = products;
+module.exports = clothing;

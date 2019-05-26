@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express');
-const products = require('./products');
+const products = require('./clothing');
 const router = require('./router');
 
 const app = express();
