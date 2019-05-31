@@ -20,34 +20,34 @@ router.post('/login', (req, res, next) => {
 });
 
 // Gets all items
-router.get('/allproducts', (req, res, next) => {
+router.get('/clothing', (req, res, next) => {
   res.sendStatus(200);
   next();
 });
 
 
 // Gets one item by ID
-router.get('/product/:id', (req, res, next) => {
+router.get('/clothing/:id', (req, res, next) => {
   res.sendStatus(200);
   next();
 });
 
 // Creates an item
-router.post('/create', (req, res, next) => {
+router.post('/clothing/create', (req, res, next) => {
   res.sendStatus(200);
   next();
 });
 
 // Deletes one item by Id
 
-router.delete('/product/:id', (req, res, next) => {
+router.delete('/clothing/:id', (req, res, next) => {
   res.sendStatus(200);
   next();
 });
 
 // Updates one item by ID
 
-router.put('/product/:id', (req, res, next) => {
+router.put('/clothing/:id', (req, res, next) => {
   res.sendStatus(200);
   next();
 });
