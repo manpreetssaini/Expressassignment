@@ -2,7 +2,7 @@
 
 const express = require('express');
 const db = require('./../db');
-const products = require('../db/products.json');
+const products = require('./../db/products.json');
 
 const router = express.Router();
 
@@ -26,15 +26,15 @@ router.post('/login', (req, res, next) => {
   next();
 });
 
-
-// get single product
+//  get single product
 router.get('/products/:id', (req, res, next) => {
-  const { id } = req.params;
-  console.log(id);
-  db.getAllProducts()
-    .then((allProducts) => {
-      res.json({ [id]: allProducts[id] });
-    });
+  const found = products.some(product => product.id === parseInt(req.params.id));
+
+  if (found) {
+    res.json(products.filter(product => product.id === parseInt(req.params.id)));
+  } else {
+    res.status(400).json({ msg: `No product with the id of ${req.params.id} was found` });
+  }
   next();
 });
 
