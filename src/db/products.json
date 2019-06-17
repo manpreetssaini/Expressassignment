@@ -1,18 +1,18 @@
-[
-	{
+{
+	"bottoms": {
 		"name": "shirts",
 		"id": 1
 	},
-	{
+	"tops": {
 		"name":"t-shirts",
 		"id": 2
 	},
-	{
+	"footwear": {
 		"name": "shoes",
 		"id": 3
 	},
-	{
+	"knitwear": {
 		"name":"sweaters",
 		"id": 4
 	}
-]
+}

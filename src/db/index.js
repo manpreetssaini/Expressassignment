@@ -18,7 +18,7 @@ const register = (newUser) => {
         console.log('user already exists');
         return;
       }
-      updatedUsers = { ...users, ...newUser };
+      const updatedUsers = { ...users, ...newUser };
       fs.writeFile('./src/db/users.json', JSON.stringify(updatedUsers, null, 2), 'utf8', (err) => {
         if (err) throw err;
       });
@@ -35,7 +35,7 @@ const createProduct = (newProduct) => {
         console.log('product already exists');
         return;
       }
-      updatedProducts = { ...products, ...newProduct };
+      const updatedProducts = { ...products, ...newProduct };
       fs.writeFile('./src/db/product.json', JSON.stringify(updatedProducts, null, 2), 'utf8', (err) => {
         if (err) throw err;
       });

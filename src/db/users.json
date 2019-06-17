@@ -1,0 +1,17 @@
+{
+  "Manpreet": {
+    "password": "alpha"
+  },
+  "John": {
+    "password": "beta"
+  },
+  "Sam": {
+    "password": "delta"
+  },
+  "Tom": {
+    "password": "gamma"
+  },
+  "Spongebob": {
+    "password": "squarepants"
+  }
+}

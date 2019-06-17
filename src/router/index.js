@@ -2,15 +2,17 @@
 
 const express = require('express');
 const db = require('./../db');
-const products = require('./products');
+const products = require('../db/products.json');
 
 const router = express.Router();
 
 // router.get('/', productsRoutes.allProducts);
 
-// creating a route - route gets all productss
+// creating a route - route gets all product
 router.get('/', (req, res) => res.json(products));
 
+
+// registerting a new user
 router.post('/register', (req, res, next) => {
   console.log('New registeration in process');
   db.register(req.body);
@@ -18,6 +20,7 @@ router.post('/register', (req, res, next) => {
   next();
 });
 
+// logging in
 router.post('/login', (req, res, next) => {
   res.sendStatus(200);
   next();
@@ -25,66 +28,33 @@ router.post('/login', (req, res, next) => {
 
 
 // get single product
-router.get('/:id', (req, res) => {
-  const found = products.some(product => product.id === parseInt(req.params.id));
-
-  if (found) {
-    res.json(products.filter(product => product.id === parseInt(req.params.id)));
-  } else {
-    res.status(400).json({ msg: `No product with the id of ${req.params.id}` });
-  }
+router.get('/products/:id', (req, res, next) => {
+  const { id } = req.params;
+  console.log(id);
+  db.getAllProducts()
+    .then((allProducts) => {
+      res.json({ [id]: allProducts[id] });
+    });
+  next();
 });
-
 
 // create product
-
-router.post('/', (req, res) => {
-  const newproducts = {
-    name: req.body.name,
-    email: req.body.email,
-    status: 'active',
-  };
-
-  if (!newproducts.name || !newproducts.email) {
-    return res.status(400).json({ msg: 'Please include a name and email' });
-  }
-
-  product.push(newproducts);
-  // res.json(productss);
-  res.redirect('/');
+router.post('/product', (req, res, next) => {
+  db.createProduct(req.body);
+  res.sendStatus(200);
+  next();
 });
 
-// update products
-
-router.put('/:id', (req, res) => {
-  const found = productss.some(products => products.id === parseInt(req.params.id));
-
-  if (found) {
-    const updproducts = req.body;
-    productss.forEach((products) => {
-      if (products.id === parseInt(req.params.id)) {
-        products.name = updproducts.name ? updproducts.name : products.name;
-        products.email = updproducts.email ? updproducts.email : products.email;
-
-        res.json({ msg: 'products has been updated', products });
-      }
-    });
-  } else {
-    res.status(400).json({ msg: `No products with the id of ${req.params.id}` });
-  }
+// update product
+router.put('/product/:id', (req, res, next) => {
+  res.sendStatus(200);
+  next();
 });
 
-
-// Delete products
-
-router.delete('/:id', (req, res) => {
-  const found = productss.some(products => products.id === parseInt(req.params.id));
-
-  if (found) {
-    res.json({ msg: 'products deleted', productss: productss.filter(products => products.id !== parseInt(req.params.id)) });
-  } else {
-    res.status(400).json({ msg: `No products with the id of ${req.params.id}` });
-  }
+// delete product
+router.delete('/product/:id', (req, res, next) => {
+  res.sendStatus(200);
+  next();
 });
 
 
