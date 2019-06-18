@@ -5,7 +5,7 @@ const util = require('util');
 const path = require('path');
 
 const readFile = util.promisify(fs.readFile);
-const writeFile = util.promisify(fs.writeFile);
+// const writeFile = util.promisify(fs.writeFile);
 
 const productsPath = path.resolve('db/products.json');
 
@@ -19,7 +19,7 @@ const register = (newUser) => {
         return;
       }
       const updatedUsers = { ...users, ...newUser };
-      fs.writeFile('./src/db/users.json', JSON.stringify(updatedUsers, null, 2), 'utf8', (err) => {
+      fs.writeFile('./src/db/users.json', JSON.stringify(updatedUsers, null, 2), 'utf8', () => {
         if (err) throw err;
       });
     }
@@ -36,7 +36,7 @@ const createProduct = (newProduct) => {
         return;
       }
       const updatedProducts = { ...products, ...newProduct };
-      fs.writeFile('./src/db/product.json', JSON.stringify(updatedProducts, null, 2), 'utf8', (err) => {
+      fs.writeFile('./src/db/product.json', JSON.stringify(updatedProducts, null, 2), 'utf8', () => {
         if (err) throw err;
       });
     }

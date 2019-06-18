@@ -1,3 +1,5 @@
+/* eslint-disable radix */
+
 'use strict';
 
 const express = require('express');
@@ -27,11 +29,11 @@ router.post('/login', (req, res, next) => {
 });
 
 //  get single product
-router.get('/:id', (req, res, next) => {
-  const found = products.some(product => product.id === (req.params.id));
+router.get('/db/products/:id', (req, res, next) => {
+  const found = products.some(product => product.id === console.log(parseInt(req.params.id)));
 
   if (found) {
-    res.json(products.filter(product => product.id === (req.params.id)));
+    res.json(products.filter(product => product.id === parseInt(req.params.id)));
   } else {
     res.status(400).json({ msg: `No product with the id of ${req.params.id} was found` });
   }
