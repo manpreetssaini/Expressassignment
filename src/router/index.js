@@ -27,11 +27,11 @@ router.post('/login', (req, res, next) => {
 });
 
 //  get single product
-router.get('/products/:id', (req, res, next) => {
-  const found = products.some(product => product.id === parseInt(req.params.id));
+router.get('/:id', (req, res, next) => {
+  const found = products.some(product => product.id === (req.params.id));
 
   if (found) {
-    res.json(products.filter(product => product.id === parseInt(req.params.id)));
+    res.json(products.filter(product => product.id === (req.params.id)));
   } else {
     res.status(400).json({ msg: `No product with the id of ${req.params.id} was found` });
   }

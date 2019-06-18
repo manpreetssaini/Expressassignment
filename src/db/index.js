@@ -7,7 +7,7 @@ const path = require('path');
 const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
 
-const productsPath = path.resolve('./src/db/products.json');
+const productsPath = path.resolve('db/products.json');
 
 const register = (newUser) => {
   fs.readFile('./src/db/users.json', 'utf8', (err, data) => {
