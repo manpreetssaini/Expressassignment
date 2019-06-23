@@ -8,7 +8,6 @@ const products = require('./../db/products.json');
 
 const router = express.Router();
 
-// router.get('/', productsRoutes.allProducts);
 
 // creating a route - route gets all product
 router.get('/', (req, res) => res.json(products));
@@ -30,7 +29,7 @@ router.post('/login', (req, res, next) => {
 
 //  get single product
 router.get('/db/products/:id', (req, res, next) => {
-  const found = products.some(product => product.id === console.log(parseInt(req.params.id)));
+  const found = products.some(product => product.id === (parseInt(req.params.id)));
 
   if (found) {
     res.json(products.filter(product => product.id === parseInt(req.params.id)));
@@ -41,9 +40,15 @@ router.get('/db/products/:id', (req, res, next) => {
 });
 
 // create product
-router.post('/product', (req, res, next) => {
-  db.createProduct(req.body);
-  res.sendStatus(200);
+router.post('/', (req, res, next) => {
+  const newProduct = {
+    description: req.body.description,
+    name: req.body.name,
+    id: req.body.id,
+  };
+
+  products.push(newProduct);
+  res.json(products);
   next();
 });
 
