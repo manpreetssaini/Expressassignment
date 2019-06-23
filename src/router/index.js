@@ -10,7 +10,7 @@ const router = express.Router();
 
 
 // creating a route - route gets all product
-router.get('/', (req, res) => res.json(products));
+router.get('/', (req, res) => res.render('products', { products }));
 
 
 // registerting a new user
