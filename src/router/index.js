@@ -52,15 +52,37 @@ router.post('/', (req, res, next) => {
   next();
 });
 
-// update product
-router.put('/product/:id', (req, res, next) => {
-  res.sendStatus(200);
-  next();
+// update product by id
+router.put('/db/products/:id', (req, res) => {
+  const found = products.some(product => product.id === parseInt(req.params.id));
+
+  if (found) {
+    const updproduct = req.body;
+    products.forEach((product) => {
+      if (product.id === parseInt(req.params.id)) {
+        product.description = updproduct.description ? updproduct.description : product.description;
+        product.name = updproduct.name ? updproduct.name : product.name;
+
+        res.json({ msg: 'product has been updated', product });
+      }
+    });
+  } else {
+    res.status(400).json({ msg: `No product with the id of ${req.params.id}` });
+  }
 });
 
 // delete product
-router.delete('/product/:id', (req, res, next) => {
-  res.sendStatus(200);
+router.delete('/db/products/:id', (req, res, next) => {
+  const found = products.some(product => product.id === parseInt(req.params.id));
+
+  if (found) {
+    res.json({
+      msg: 'Product deleted',
+      product: products.filter(product => product.id !== parseInt(req.params.id))
+    });
+  } else {
+    res.status(400).json({ msg: `No member with the id of ${req.params.id}` });
+  }
   next();
 });
 
