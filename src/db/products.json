@@ -1,17 +1,21 @@
 [
 	{
+		"description": "tops",
 		"name": "shirts",
 		"id": 1
 	},
 	{
-		"name":"t-shirts",
+		"description": "bottoms",
+		"name":"pants",
 		"id": 2
 	},
 	{
+		"description": "footwear",
 		"name": "shoes",
 		"id": 3
 	},
 	{
+		"description":"knitwear",
 		"name":"sweaters",
 		"id": 4
 	}
