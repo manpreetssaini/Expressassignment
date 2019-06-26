@@ -8,8 +8,10 @@
   },
   "author": "Manpreet Saini <manpreet_saini92@hotmail.com",
   "dependencies": {
+    "argon2": "^0.24.0",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.3.1",
+    "dotenv": "^8.0.0",
     "ejs": "^2.6.2",
     "express": "^4.17.0"
   },

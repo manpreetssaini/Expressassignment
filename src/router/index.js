@@ -5,6 +5,7 @@
 const express = require('express');
 const db = require('./../db');
 const products = require('./../db/products.json');
+const loginRoutes = require('./login');
 
 const router = express.Router();
 
@@ -13,7 +14,7 @@ const router = express.Router();
 router.get('/', (req, res) => res.render('products', { products }));
 
 
-// registerting a new user
+// registering a new user
 router.post('/register', (req, res, next) => {
   console.log('New registeration in process');
   db.register(req.body);
@@ -22,12 +23,11 @@ router.post('/register', (req, res, next) => {
 });
 
 // logging in
-router.post('/login', (req, res, next) => {
-  res.sendStatus(200);
-  next();
-});
+router.get('/login', loginRoutes.get);
+router.get('/login', loginRoutes.post);
 
 //  get single product
+
 router.get('/db/products/:id', (req, res, next) => {
   const found = products.some(product => product.id === (parseInt(req.params.id)));
 
