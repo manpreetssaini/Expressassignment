@@ -19,7 +19,7 @@ function readUsers() {
 
 // writing to 'user.json' file
 
-function writeUsers() {
+function writeUsers(users) {
   return writeFile(userDbPath, JSON.stringify(users, null, 2));
 }
 
@@ -75,6 +75,7 @@ function getAllProducts() {
 
 module.exports = {
   getAllProducts: getAllProducts,
+  usernameExists: usernameExists,
   addUser: addUser,
   getUserPasswordHash: getUserPasswordHash,
 };

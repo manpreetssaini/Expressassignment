@@ -1,48 +1,34 @@
 'use strict';
 
-const argon2 = require('argon2');
-const db = require('../db');
+const argon = require('argon2');
+const usersdb = require('../db/index.js');
 
-// logging in
 
-function getLoginRoute(req, res) {
-  res.render('login', {
-    pageId: 'login',
-    title: 'Login',
-    username: req.session.username,
-    formError: null,
-    formValues: { username: null, password: null },
-  });
+// POST request for login submission
+
+function postLoginRoute(req, res, next) {
+  usersdb.usernameExists(req.body.username)
+
+    .then((usernameExists) => {
+      if (!usernameExists) {
+        return false;
+      }
+      return usersdb.getUserPasswordHash(req.body.username)
+        .then(dbHash => argon.verify(dbHash, req.body.password));
+    })
+
+    .then((isValid) => {
+      if (!isValid) {
+        res
+          .status(401)
+          .json({ message: 'Authentication failed. Incorrect username or password provided' });
+      } else {
+        req.session.username = req.body.username;
+        res.json({ message: 'Login Successful' });
+      }
+    });
+  next();
 }
 
-// Log in submission
 
-async function postLoginRoute(req, res, next) {
-  try {
-    const hash = await db.getUserPasswordHash(req.body.username);
-    if (await argon2.verify(hash, req.body.password)) {
-      req.session.username = req.body.username;
-      res.redirect('/');
-    } else {
-      res
-        .status(401)
-        .render('login', {
-          pageId: 'login',
-          title: 'Login',
-          username: req.session.username,
-          formError: 'Authentication Failed',
-          formValues: {
-            username: req.body.username || null,
-            password: req.body.password || null,
-          },
-        });
-    }
-  } catch (error) {
-    next(error);
-  }
-}
-
-module.exports = {
-  get: getLoginRoute,
-  post: postLoginRoute,
-};
+module.exports = { postLoginRoute: postLoginRoute };
