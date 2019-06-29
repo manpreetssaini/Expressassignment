@@ -11,7 +11,7 @@ const router = express.Router();
 
 
 // creating a route - route gets all product
-router.get('/', (req, res) => res.render('products', { products }));
+router.get('/products', (req, res) => res.render('products', { products }));
 
 
 // new user registeration
