@@ -3,9 +3,14 @@
 'use strict';
 
 const express = require('express');
+const fs = require('fs');
+const path = require('path');
 const products = require('./../db/products.json');
 const registerRoute = require('.././router/register');
 const loginRoute = require('.././router/login');
+// eslint-disable-next-line camelcase
+const products_path = path.join(__dirname, '/../db/products.json');
+
 
 const router = express.Router();
 
@@ -42,8 +47,12 @@ router.post('/db/products', (req, res, next) => {
   };
 
   products.push(newProduct);
-  res.json(products);
-  next();
+  fs.writeFile(products_path, JSON.stringify(products), (err) => {
+    if (err) throw err;
+    console.log('The file has been saved!');
+    res.json(products);
+    next();
+  });
 });
 
 // update product by id
@@ -56,8 +65,12 @@ router.put('/db/products/:id', (req, res) => {
       if (product.id === parseInt(req.params.id)) {
         product.description = updproduct.description ? updproduct.description : product.description;
         product.name = updproduct.name ? updproduct.name : product.name;
+        fs.writeFile(products_path, JSON.stringify(products), (err) => {
+          if (err) throw err;
+          res.json({ msg: 'product has been updated', product });
+        });
 
-        res.json({ msg: 'product has been updated', product });
+        // res.json({ msg: 'product has been updated', product });
       }
     });
   } else {
