@@ -14,6 +14,8 @@ module.exports = {
     'no-console': 0,
     'prefer-destructuring': 0,
     'object-shorthand': 0,
+    'arrow-body-style': 0,
+    'consistent-return': 0,
   },
   overrides: [
     {

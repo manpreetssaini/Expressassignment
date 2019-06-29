@@ -4,7 +4,6 @@
 
 const express = require('express');
 const products = require('./../db/products.json');
-const authentication = require('.././middleware/authentication');
 const registerRoute = require('.././router/register');
 const loginRoute = require('.././router/login');
 
@@ -23,7 +22,7 @@ router.post('/login', loginRoute.post);
 
 //  get single product
 
-router.get('/db/products/:id', authentication, (req, res, next) => {
+router.get('/db/products/:id', (req, res, next) => {
   const found = products.some(product => product.id === (parseInt(req.params.id)));
 
   if (found) {
@@ -35,7 +34,7 @@ router.get('/db/products/:id', authentication, (req, res, next) => {
 });
 
 // create product
-router.post('/', authentication, (req, res, next) => {
+router.post('/db/products', (req, res, next) => {
   const newProduct = {
     description: req.body.description,
     name: req.body.name,
@@ -48,7 +47,7 @@ router.post('/', authentication, (req, res, next) => {
 });
 
 // update product by id
-router.put('/db/products/:id', authentication, (req, res) => {
+router.put('/db/products/:id', (req, res) => {
   const found = products.some(product => product.id === parseInt(req.params.id));
 
   if (found) {
@@ -67,7 +66,7 @@ router.put('/db/products/:id', authentication, (req, res) => {
 });
 
 // delete product
-router.delete('/db/products/:id', authentication, (req, res, next) => {
+router.delete('/db/products/:id', (req, res, next) => {
   const found = products.some(product => product.id === parseInt(req.params.id));
 
   if (found) {
