@@ -69,8 +69,6 @@ router.put('/db/products/:id', (req, res) => {
           if (err) throw err;
           res.json({ msg: 'product has been updated', product });
         });
-
-        // res.json({ msg: 'product has been updated', product });
       }
     });
   } else {
@@ -78,7 +76,7 @@ router.put('/db/products/:id', (req, res) => {
   }
 });
 
-// delete product
+// delete product by id
 router.delete('/db/products/:id', (req, res, next) => {
   const found = products.some(product => product.id === parseInt(req.params.id));
 
