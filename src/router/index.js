@@ -86,6 +86,7 @@ router.delete('/db/products/:id', (req, res, next) => {
     res.json({
       msg: 'Product deleted',
       product: products.filter(product => product.id !== parseInt(req.params.id)),
+
     });
   } else {
     res.status(400).json({ msg: `No member with the id of ${req.params.id}` });
