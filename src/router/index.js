@@ -14,7 +14,7 @@ const router = express.Router();
 router.get('/', (req, res) => res.render('products', { products }));
 
 
-// registering a new user
+// new user registeration
 router.post('/register', registerRoute.post);
 
 // logging in
