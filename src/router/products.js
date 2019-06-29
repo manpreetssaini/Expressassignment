@@ -1,6 +1,6 @@
 'use strict';
 
-const db = require('../db');
+const db = require('.././db/products.json');
 
 function allProducts(req, res, next) {
   db.getAllProducts()

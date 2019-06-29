@@ -11,7 +11,7 @@ const productsPath = path.resolve('db/products.json');
 const userDbPath = path.resolve('db/users.json');
 
 
-// reads the db file 'users.json' file
+// reads the db file 'users.json' file and parses its JSON
 function readUsers() {
   return readFile(userDbPath)
     .then(json => JSON.parse(json));
@@ -23,7 +23,10 @@ function writeUsers(users) {
   return writeFile(userDbPath, JSON.stringify(users, null, 2));
 }
 
-// Checking if the user already exists or not
+/** Checking if the user already exists or not
+ * @param {string} username
+ * @returns {promise<boolean>} whether a user exists or not
+*/
 
 function usernameExists(username) {
   return readUsers()
@@ -40,14 +43,22 @@ function usernameExists(username) {
     });
 }
 
-// Adding a user to the database
+/**
+ * Adds user to the database
+ * @param {object} user
+ * @returns {promise<undefined>}
+ */
 
 function addUser(user) {
   return readUsers()
     .then(users => writeUsers(users.concat(user)));
 }
 
-// get user password hash
+/**
+ * get user password hash
+ * @param {string} username
+ * @returns{Promise<string>}
+*/
 
 function getUserPasswordHash(username) {
   return readUsers()

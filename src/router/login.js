@@ -1,22 +1,26 @@
 'use strict';
 
 const argon = require('argon2');
-const usersdb = require('../db/index.js');
+const usersdb = require('.././db/users.json');
 
 
-// POST request for login submission
+// POST request for login form submission
 
 function postLoginRoute(req, res, next) {
   usersdb.usernameExists(req.body.username)
 
+    // Validate
     .then((usernameExists) => {
+      // login is not valid if username does not exist
       if (!usernameExists) {
         return false;
       }
+      // if the username exists verify if the password is correct
       return usersdb.getUserPasswordHash(req.body.username)
         .then(dbHash => argon.verify(dbHash, req.body.password));
     })
 
+    // render upon failure
     .then((isValid) => {
       if (!isValid) {
         res
@@ -31,4 +35,4 @@ function postLoginRoute(req, res, next) {
 }
 
 
-module.exports = { postLoginRoute: postLoginRoute };
+module.exports = { post: postLoginRoute };

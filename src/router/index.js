@@ -3,9 +3,10 @@
 'use strict';
 
 const express = require('express');
-const db = require('./../db');
 const products = require('./../db/products.json');
-const loginRoutes = require('./login');
+const authentication = require('.././middleware/authentication');
+const registerRoute = require('.././router/register');
+const loginRoute = require('.././router/login');
 
 const router = express.Router();
 
@@ -15,20 +16,14 @@ router.get('/', (req, res) => res.render('products', { products }));
 
 
 // registering a new user
-router.post('/register', (req, res, next) => {
-  console.log('New registeration in process');
-  db.register(req.body);
-  res.sendStatus(200);
-  next();
-});
+router.post('/register', registerRoute.post);
 
 // logging in
-router.get('/login', loginRoutes.get);
-router.get('/login', loginRoutes.post);
+router.post('/login', loginRoute.post);
 
 //  get single product
 
-router.get('/db/products/:id', (req, res, next) => {
+router.get('/db/products/:id', authentication, (req, res, next) => {
   const found = products.some(product => product.id === (parseInt(req.params.id)));
 
   if (found) {
@@ -40,7 +35,7 @@ router.get('/db/products/:id', (req, res, next) => {
 });
 
 // create product
-router.post('/', (req, res, next) => {
+router.post('/', authentication, (req, res, next) => {
   const newProduct = {
     description: req.body.description,
     name: req.body.name,
@@ -53,7 +48,7 @@ router.post('/', (req, res, next) => {
 });
 
 // update product by id
-router.put('/db/products/:id', (req, res) => {
+router.put('/db/products/:id', authentication, (req, res) => {
   const found = products.some(product => product.id === parseInt(req.params.id));
 
   if (found) {
@@ -72,13 +67,13 @@ router.put('/db/products/:id', (req, res) => {
 });
 
 // delete product
-router.delete('/db/products/:id', (req, res, next) => {
+router.delete('/db/products/:id', authentication, (req, res, next) => {
   const found = products.some(product => product.id === parseInt(req.params.id));
 
   if (found) {
     res.json({
       msg: 'Product deleted',
-      product: products.filter(product => product.id !== parseInt(req.params.id))
+      product: products.filter(product => product.id !== parseInt(req.params.id)),
     });
   } else {
     res.status(400).json({ msg: `No member with the id of ${req.params.id}` });
