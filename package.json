@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "index",
-    "dev": "nodemon src/index"
+    "dev": "nodemon --inspect src/index.js"
   },
   "author": "Manpreet Saini <manpreet_saini92@hotmail.com",
   "dependencies": {

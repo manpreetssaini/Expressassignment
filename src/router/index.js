@@ -65,7 +65,7 @@ router.put('/db/products/:id', (req, res) => {
       if (product.id === parseInt(req.params.id)) {
         product.description = updproduct.description ? updproduct.description : product.description;
         product.name = updproduct.name ? updproduct.name : product.name;
-        fs.writeFile(products_path, JSON.stringify(products), (err) => {
+        fs.writeFile(products_path, JSON.stringify(products, null, 2), 'utf8', (err) => {
           if (err) throw err;
           res.json({ msg: 'product has been updated', product });
         });
@@ -80,6 +80,11 @@ router.put('/db/products/:id', (req, res) => {
 router.delete('/db/products/:id', (req, res, next) => {
   const found = products.some(product => product.id === parseInt(req.params.id));
 
+  delete products[req.params.id];
+  fs.writeFile(products_path, JSON.stringify(products, null, 2), 'utf8', (err) => {
+    if (err) throw err;
+  });
+
   if (found) {
     res.json({
       msg: 'Product deleted',
@@ -90,6 +95,5 @@ router.delete('/db/products/:id', (req, res, next) => {
   }
   next();
 });
-
 
 module.exports = router;
