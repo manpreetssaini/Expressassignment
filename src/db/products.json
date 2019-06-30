@@ -1,16 +1,5 @@
 [
   {
-    "description": "dress shirts",
-    "name": "shirts",
-    "id": 1
-  },
-  {
-    "description": "bottoms",
-    "name": "pants",
-    "id": 2
-  },
-  null,
-  {
     "description": "knitwear",
     "name": "sweaters",
     "id": 4

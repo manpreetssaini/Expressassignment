@@ -65,7 +65,7 @@ router.put('/db/products/:id', (req, res) => {
       if (product.id === parseInt(req.params.id)) {
         product.description = updproduct.description ? updproduct.description : product.description;
         product.name = updproduct.name ? updproduct.name : product.name;
-        fs.writeFile(products_path, JSON.stringify(products, null, 2), 'utf8', (err) => {
+        fs.writeFile(products_path, JSON.stringify(products), 'utf8', (err) => {
           if (err) throw err;
           res.json({ msg: 'product has been updated', product });
         });
@@ -77,18 +77,20 @@ router.put('/db/products/:id', (req, res) => {
 });
 
 // delete product by id
+// delete product by id
 router.delete('/db/products/:id', (req, res, next) => {
   const found = products.some(product => product.id === parseInt(req.params.id));
+  const updatedProducts = products.filter(product => product.id !== parseInt(req.params.id));
 
   delete products[req.params.id];
-  fs.writeFile(products_path, JSON.stringify(products, null, 2), 'utf8', (err) => {
+  fs.writeFile(products_path, JSON.stringify(updatedProducts, null, 2), 'utf8', (err) => {
     if (err) throw err;
   });
 
   if (found) {
     res.json({
       msg: 'Product deleted',
-      product: products.filter(product => product.id !== parseInt(req.params.id)),
+      product: updatedProducts,
     });
   } else {
     res.status(400).json({ msg: `No member with the id of ${req.params.id}` });
