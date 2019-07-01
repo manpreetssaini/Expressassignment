@@ -1,42 +1,65 @@
 'use strict';
 
 
-const argon = require('argon2');
-const usersdb = require('../db/users.json');
+const argon2 = require('argon2');
+const usersdb = require('../db/users');
 
-function postRegisterRoute(req, res, next) {
-  // First we check if the name provided already exists
-  usersdb.usernameExists(req.body.username)
-    .then(async (usernameExists) => {
-    // check if form values are valid
-      const formErrors = {
-        username: (!usernameExists && req.body.username) ? null : 'Invalid username',
-        password: (req.body.password && req.body.password.lenght >= 6) ? null : 'Invalid passwod',
-      };
-
-      // if there are any errors do not register the user
-      if (formErrors.username || formErrors.password) {
-        res
-          .status(400)
-          .render('register', {
-            username: req.session.username,
-            formErrors: formErrors,
-            formValues: {
-              username: req.body.username,
-              password: req.body.password,
-            },
-          });
-        // else form values are valid
-      } else {
-        const dbHash = await argon.hash(req.body.password);
-        const newUser = {
-          username: req.body.username,
-          password: dbHash,
-        };
-        usersdb.addUser(newUser);
-        res.json({ message: 'Registeration Succesful!' });
-      }
-    })
-    .catch(next);
+function getRegisterRoute(req, res) {
+  res.render('register', {
+    pageId: 'register',
+    title: 'Register',
+    username: req.session.username,
+    formValues: { username: null, password: null },
+    formErrors: { username: null, password: null },
+  });
 }
-module.exports = { post: postRegisterRoute };
+
+
+/**
+ * Form submission
+ */
+async function postRegisterRoute(req, res, next) {
+  try {
+    // First we check if the username provided already exists
+    const usernameExists = await usersdb.usernameExists(req.body.username);
+
+    const formErrors = {};
+    if (!usernameExists && req.body.username) {
+      formErrors.username = null;
+    } else {
+      formErrors.username = 'Invalid username';
+    }
+
+    // If there are any errors do not register the user
+    if (formErrors.username) {
+      res
+        .status(400)
+        .render('register', {
+          pageId: 'register',
+          title: 'Register',
+          username: req.session.username,
+          formErrors: formErrors,
+          formValues: {
+            username: req.body.username,
+          },
+        });
+    // Else, the form values are valid
+    } else {
+      // TODO: Hash the password and call `db.addUser(newUser)`
+      // If successful should redirect to `/login`
+      const hash = await argon2.hash(req.body.password);
+      await usersdb.addUser({
+        username: req.body.username,
+        password: hash,
+      });
+      res.redirect('/login');
+    }
+  } catch (error) {
+    next(error);
+  }
+}
+
+module.exports = {
+  get: getRegisterRoute,
+  post: postRegisterRoute,
+};
