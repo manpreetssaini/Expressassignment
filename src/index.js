@@ -10,7 +10,6 @@ const defaultSessionValues = require('./middleware/default-session-values');
 const authentication = require('./middleware/authentication');
 const defaultErrorHandler = require('./middleware/default-error-handle');
 
-
 // creating an instance for the express application
 const app = express();
 
