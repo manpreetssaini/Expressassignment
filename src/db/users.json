@@ -7,5 +7,9 @@
   {
     "username": "mickeymouse",
     "password": "$argon2i$v=19$m=4096,t=3,p=1$erHralhO28JIc8P84uplUQ$58MHQ7ZwG1/lyNHT89jII5kagUCX3MlnVjEjTq+WuIU"
+  },
+  {
+    "username": "50cent",
+    "password": "$argon2i$v=19$m=4096,t=3,p=1$k2S2qAeFt6oOOy9vmzn/Mw$34PpANZbwW96brEEqPiax3RI5flVHaxDwpyAtGCFBW0"
   }
 ]
