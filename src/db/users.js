@@ -7,8 +7,8 @@ const path = require('path');
 const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
 
-const productsPath = path.resolve('db/products.json');
-const userDbPath = path.resolve('db/users.json');
+const productsPath = path.resolve('./src/db/products.json');
+const userDbPath = path.resolve('./src/db/users.json');
 
 
 // reads the db file 'users.json' file and parses its JSON

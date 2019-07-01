@@ -4,17 +4,6 @@
 const argon2 = require('argon2');
 const usersdb = require('../db/users');
 
-function getRegisterRoute(req, res) {
-  res.render('register', {
-    pageId: 'register',
-    title: 'Register',
-    username: req.session.username,
-    formValues: { username: null, password: null },
-    formErrors: { username: null, password: null },
-  });
-}
-
-
 /**
  * Form submission
  */
@@ -34,14 +23,9 @@ async function postRegisterRoute(req, res, next) {
     if (formErrors.username) {
       res
         .status(400)
-        .render('register', {
-          pageId: 'register',
-          title: 'Register',
-          username: req.session.username,
-          formErrors: formErrors,
-          formValues: {
-            username: req.body.username,
-          },
+        .json({
+          message: 'Registeration Failed',
+          content: formErrors,
         });
     // Else, the form values are valid
     } else {
@@ -52,14 +36,11 @@ async function postRegisterRoute(req, res, next) {
         username: req.body.username,
         password: hash,
       });
-      res.redirect('/login');
+      res.json({ message: 'Registeration Successful' });
     }
   } catch (error) {
     next(error);
   }
 }
 
-module.exports = {
-  get: getRegisterRoute,
-  post: postRegisterRoute,
-};
+module.exports = { post: postRegisterRoute };

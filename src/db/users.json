@@ -1,5 +1,11 @@
 [
-	{
-
-	}
+  {},
+  {
+    "username": "test123",
+    "password": "$argon2i$v=19$m=4096,t=3,p=1$EqDQ8MkQaczKpc+x/Hp6IQ$ZNDiDd0tJOB9mUgOGyjCOnBd3T8UYkkjVRFfWFzeauY"
+  },
+  {
+    "username": "mickeymouse",
+    "password": "$argon2i$v=19$m=4096,t=3,p=1$erHralhO28JIc8P84uplUQ$58MHQ7ZwG1/lyNHT89jII5kagUCX3MlnVjEjTq+WuIU"
+  }
 ]
